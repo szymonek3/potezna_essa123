@@ -1,1 +1,39 @@
 #siemasz
+def dodawanie(x,y):
+    dodaj = x + y
+    return(dodaj)
+def odejmowanie(a,b):
+    odejmij = a - b
+    return(odejmij)
+def mnozenie(u,v):
+    mnoz = u * v
+    return(mnoz)
+def dzielenie(p,l):
+    dziel = p/l
+    return(dziel)
+
+print("podaj dwie liczby")
+
+n = int(input())
+m = int(input())
+
+print("podaj dziłanie matematyczne, do wyboru: ")
+print("dodawanie, odejmowanie, mnożenie albo dzielenie")
+c = input()
+
+
+if c == "dodawanie":
+    wynik1 = dodawanie(n, m)
+    print(wynik1)
+elif c == "odejmowanie":
+    wynik2 = odejmowanie(n, m)
+    print(wynik2)
+elif c == "mnozenie":
+    wynik3 = mnozenie(n,m)
+    print(wynik3)
+elif c == "dzielenie":
+        if m == 0:
+            print("Nie dzielimy przez zero")
+        else:
+            wynik4 = dzielenie(n,m)
+            print(wynik4)
