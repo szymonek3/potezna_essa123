@@ -1,4 +1,5 @@
 #siemasz
+# Kalkulator
 def dodawanie(x,y):
     dodaj = x + y
     return(dodaj)
