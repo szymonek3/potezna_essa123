@@ -1,3 +1,5 @@
-Witamy serdecznie na naszej kozak stronie internetowej GITHUB, prosze nie mylić z P...
+#Witamy serdecznie na naszej kozak stronie internetowej GITHUB.
 
-git checkout
+#git checkout
+#git brancze
+#git kłesty 
