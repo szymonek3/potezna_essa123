@@ -1,1 +1,3 @@
 Witamy serdecznie na naszej kozak stronie internetowej GITHUB, prosze nie mylić z P...
+
+git checkout
