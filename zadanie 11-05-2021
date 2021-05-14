@@ -5,3 +5,48 @@ import geopandas
 import matplotlib as plt
 import pandas as pd
 import shapely
+gdf = geopandas.read_file("PD_STAT_GRID_CELL_2011.shp")
+gdf.to_crs("EPS:4326")
+gdf.plot("TOT", legend=True)
+gdf['centroid'] = gdf.centroid
+xmin, ymin, xmax, ymax = [13, 48, 25, 56]
+n_cells = 30
+cell_size = (xmax-xmin)/n_cells
+grid_cells=[]
+for x0 in np.arange(xmin,xmax+cell_size, cell_size):
+    for y0 in np.arange(ymin, ymax+cell_size, cell_size):
+        x1 = x0 - cell_size
+        y1 = y0 + cell_size
+        grid_cells.append( shapely.geometry.box(x0, y0, x1, y1))
+cell = geopandas.GeoDataFrame(grid_cells, columns=['geometry'])
+ax = gdf.plot(markersize =.1, figsize = (12,8), column = 'TOT', cmap = 'jet')
+plt. autoscale(False)
+cell.plot(ax=ax, facecolor = "none", edgecolor = 'grey')
+ax.axis("off")
+merged = geopandas.sjoin(gdf, cell, how='left', op='within')
+dissolve = merged.dissolve(by='index_right', aggfunc='sum')
+cell.loc[dissolve.index, 'TOT'] = dissolve.TOT.values
+ax = cell.plot(column='TOT',figsize=(12,8),cmap='virdis',vmax=700000,edgecolor="grey",legend=True)
+plt.autoscale(False)
+ax.set_axis_off()
+plt.axis('equal');
+plt.title('liczba ludności w siatce')
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+fig, ax = plt.subplots(1, 1)
+divider = make_axes_locatable(ax)
+cax = divider.append_axes("right", size="5%", pad=0.1)
+map_df = geopandas.read_file(gdf)
+map_df.head()
+map_df.plot()
+plt.rcParams['figure.figsize'] = [50, 70] 
+map_df.plot()
+population = pd.read_csv("data_province.csv", sep=";")
+population.head()
+variable = 'cities_regencies'
+vmin, vmax = 0, 50
+fig, ax = plt.subplots(1, figsize=(30, 10))
+ax.axis('off')
+sm = plt.cm.ScalarMappable(cmap='Blues', norm=plt.Normalize(vmin=vmin, vmax=vmax))
+sm.set_array([]) 
+fig.colorbar(sm)
+merged.plot(column=variable, cmap='Blues', linewidth=0.8, ax=ax, edgecolor='0.8')
