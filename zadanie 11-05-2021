@@ -1,1 +1,7 @@
-
+# Zadanie by Szymon & Bartek
+#
+import numpy as np
+import geopandas
+import matplotlib as plt
+import pandas as pd
+import shapely
